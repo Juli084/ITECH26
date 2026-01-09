@@ -1,4 +1,5 @@
 import { getProductById } from "@/app/actions/products";
+export const dynamic = 'force-dynamic';
 import { notFound } from "next/navigation";
 import { ProductForm } from "../components/ProductForm";
 import { ArrowLeft } from "lucide-react";

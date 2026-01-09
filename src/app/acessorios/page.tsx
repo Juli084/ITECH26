@@ -1,4 +1,5 @@
 import { getProducts } from "@/app/actions/products";
+export const dynamic = 'force-dynamic';
 import { ProductCard } from "./components/ProductCard";
 import { ShoppingBag } from "lucide-react";
 

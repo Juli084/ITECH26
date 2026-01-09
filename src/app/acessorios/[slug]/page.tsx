@@ -1,4 +1,5 @@
 import { getProductBySlug } from "@/app/actions/products";
+export const dynamic = 'force-dynamic';
 import { notFound } from "next/navigation";
 import { Check, ShoppingCart, ArrowLeft, ShieldCheck, Truck, Film } from "lucide-react";
 import Link from "next/link";

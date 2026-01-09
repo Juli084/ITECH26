@@ -1,4 +1,5 @@
 import { db } from "@/db";
+export const dynamic = 'force-dynamic';
 import { products, productMedia } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { Button } from "@/components/ui/button";

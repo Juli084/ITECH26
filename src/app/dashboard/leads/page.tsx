@@ -1,4 +1,5 @@
 import { getLeads } from "@/app/actions/leads";
+export const dynamic = 'force-dynamic';
 import {
     Card,
     CardContent,

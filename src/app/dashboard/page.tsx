@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+export const dynamic = 'force-dynamic';
 import { Users, FileText, BarChart3, MessageSquare, ArrowRight, Package } from "lucide-react";
 import { getLeads } from "@/app/actions/leads";
 import { getPosts } from "@/app/actions/blog";
