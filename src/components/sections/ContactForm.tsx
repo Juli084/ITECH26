@@ -115,7 +115,7 @@ function ContactFormContent() {
                         <Input
                             id="name"
                             placeholder="Ex: Julio Silva"
-                            className="h-16 rounded-2xl border-slate-100 bg-slate-50/50 hover:bg-white focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary px-6 text-lg font-medium transition-all"
+                            className="h-16 rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-300 focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary px-6 text-lg font-medium transition-all placeholder:text-slate-400"
                             {...register("name")}
                         />
                         {errors.name && <p className="text-xs text-red-500 font-bold mt-2 ml-2">{errors.name.message}</p>}
@@ -125,14 +125,14 @@ function ContactFormContent() {
                 {/* Email */}
                 <div className="space-y-3">
                     <Label htmlFor="email" className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                        <Mail className="w-3.5 h-3.5" /> E-mail Profissional *
+                        <Mail className="w-3.5 h-3.5" /> Seu Email Principal *
                     </Label>
                     <div className="relative">
                         <Input
                             id="email"
                             type="email"
                             placeholder="exemplo@gmail.com"
-                            className="h-16 rounded-2xl border-slate-100 bg-slate-50/50 hover:bg-white focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary px-6 text-lg font-medium transition-all"
+                            className="h-16 rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-300 focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary px-6 text-lg font-medium transition-all placeholder:text-slate-400"
                             {...register("email")}
                         />
                         {errors.email && <p className="text-xs text-red-500 font-bold mt-2 ml-2">{errors.email.message}</p>}
@@ -148,7 +148,7 @@ function ContactFormContent() {
                         <Input
                             id="phone"
                             placeholder="(15) 99999-9999"
-                            className="h-16 rounded-2xl border-slate-100 bg-slate-50/50 hover:bg-white focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary px-6 text-lg font-medium transition-all"
+                            className="h-16 rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-300 focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary px-6 text-lg font-medium transition-all placeholder:text-slate-400"
                             {...register("phone")}
                         />
                     </div>
@@ -162,7 +162,7 @@ function ContactFormContent() {
                     <div className="relative">
                         <select
                             id="service"
-                            className="flex h-16 w-full rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-white focus:bg-white px-6 py-2 text-lg font-medium ring-offset-background focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary appearance-none cursor-pointer transition-all"
+                            className="flex h-16 w-full rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-300 focus:bg-white px-6 py-2 text-lg font-medium ring-offset-background focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary appearance-none cursor-pointer transition-all text-slate-700"
                             {...register("service")}
                         >
                             <option value="">Selecione uma opção...</option>
@@ -193,7 +193,7 @@ function ContactFormContent() {
                     <Textarea
                         id="message"
                         placeholder="Conte um pouco sobre o que você precisa..."
-                        className="min-h-[200px] rounded-3xl border-slate-100 bg-slate-50/50 hover:bg-white focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary p-8 text-lg font-medium leading-relaxed transition-all resize-none"
+                        className="min-h-[200px] rounded-3xl border-2 border-slate-200 bg-white hover:border-slate-300 focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary p-8 text-lg font-medium leading-relaxed transition-all resize-none placeholder:text-slate-400"
                         {...register("message")}
                     />
                     {errors.message && <p className="text-xs text-red-500 font-bold mt-2 ml-2">{errors.message.message}</p>}
