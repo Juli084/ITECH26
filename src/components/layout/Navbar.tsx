@@ -31,23 +31,25 @@ export function Navbar() {
                 <div className="flex items-center justify-end space-x-2 flex-1">
                     <nav className="flex items-center gap-1 md:gap-4">
                         <CartSheet />
-                        {session ? (
-                            <div className="flex items-center gap-1 md:gap-2">
-                                <Link href="/dashboard">
-                                    <Button variant="ghost" size="sm" className="px-2 md:px-3 text-xs md:text-sm">Dash</Button>
-                                </Link>
-                                <Button variant="outline" size="sm" onClick={() => signOut()} className="px-2 md:px-3 text-xs md:text-sm hidden sm:flex">Sair</Button>
-                            </div>
-                        ) : (
-                            <div className="flex items-center gap-1 md:gap-2">
-                                <Link href="/login">
-                                    <Button variant="ghost" size="sm" className="px-2 md:px-3 text-xs md:text-sm">Entrar</Button>
-                                </Link>
-                                <Link href="/cadastro" className="hidden sm:block">
-                                    <Button size="sm" className="px-3 md:px-4 text-xs md:text-sm">Começar</Button>
-                                </Link>
-                            </div>
-                        )}
+                        <div className="hidden sm:flex items-center gap-2">
+                            {session ? (
+                                <>
+                                    <Link href="/dashboard">
+                                        <Button variant="ghost" size="sm" className="px-3">Dash</Button>
+                                    </Link>
+                                    <Button variant="outline" size="sm" onClick={() => signOut()} className="px-3 hidden lg:flex">Sair</Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Link href="/login">
+                                        <Button variant="ghost" size="sm" className="px-3">Entrar</Button>
+                                    </Link>
+                                    <Link href="/cadastro">
+                                        <Button size="sm" className="px-4">Começar</Button>
+                                    </Link>
+                                </>
+                            )}
+                        </div>
                     </nav>
                 </div>
             </div>
