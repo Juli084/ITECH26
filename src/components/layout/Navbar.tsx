@@ -1,0 +1,54 @@
+"use client";
+
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { useSession, signOut } from "next-auth/react";
+
+import { CartSheet } from "@/components/cart/CartSheet";
+
+export function Navbar() {
+    const { data: session } = useSession();
+
+    return (
+        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex h-14 max-w-screen-2xl items-center mx-auto px-4">
+                <div className="mr-4 hidden md:flex">
+                    <Link className="mr-6 flex items-center space-x-2" href="/">
+                        <span className="hidden font-bold sm:inline-block font-heading">iTech Soluções Digitais</span>
+                    </Link>
+                    <nav className="flex items-center gap-6 text-sm font-medium">
+                        <Link href="/sobre" className="transition-colors hover:text-foreground/80 text-foreground/60 focus:text-foreground">Sobre</Link>
+                        <Link href="/servicos" className="transition-colors hover:text-foreground/80 text-foreground/60 focus:text-foreground">Serviços</Link>
+                        <Link href="/acessorios" className="transition-colors hover:text-foreground/80 text-foreground/60 focus:text-foreground">Acessórios</Link>
+                        <Link href="/blog" className="transition-colors hover:text-foreground/80 text-foreground/60 focus:text-foreground">Blog</Link>
+                        <Link href="/contato" className="transition-colors hover:text-foreground/80 text-foreground/60 focus:text-foreground">Contato</Link>
+                    </nav>
+                </div>
+                <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+                    <div className="w-full flex-1 md:w-auto md:flex-none">
+                    </div>
+                    <nav className="flex items-center gap-4">
+                        <CartSheet />
+                        {session ? (
+                            <>
+                                <Link href="/dashboard">
+                                    <Button variant="ghost" size="sm">Dashboard</Button>
+                                </Link>
+                                <Button variant="outline" size="sm" onClick={() => signOut()}>Sair</Button>
+                            </>
+                        ) : (
+                            <>
+                                <Link href="/login">
+                                    <Button variant="ghost" size="sm">Entrar</Button>
+                                </Link>
+                                <Link href="/cadastro">
+                                    <Button size="sm">Começar</Button>
+                                </Link>
+                            </>
+                        )}
+                    </nav>
+                </div>
+            </div>
+        </header>
+    );
+}
