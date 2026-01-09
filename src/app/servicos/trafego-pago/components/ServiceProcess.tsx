@@ -1,9 +1,11 @@
+import { Lightbulb, Target, Rocket, LineChart } from "lucide-react";
+
 export function ServiceProcess() {
     const steps = [
-        "Entendimento do seu negócio e objetivo",
-        "Definição de estratégia de anúncios",
-        "Criação das campanhas",
-        "Monitoramento e otimização constante"
+        { text: "Entendimento do seu negócio e objetivo", icon: Lightbulb },
+        { text: "Definição de estratégia de anúncios", icon: Target },
+        { text: "Criação das campanhas", icon: Rocket },
+        { text: "Monitoramento e otimização constante", icon: LineChart }
     ];
 
     return (
@@ -19,7 +21,7 @@ export function ServiceProcess() {
                                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xl">
                                     {index + 1}
                                 </div>
-                                <p className="text-xl text-slate-700 font-medium text-left">{step}</p>
+                                <p className="text-xl text-slate-700 font-medium text-left">{step.text}</p>
                             </div>
                         ))}
                     </div>

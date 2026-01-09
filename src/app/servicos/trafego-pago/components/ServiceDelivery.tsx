@@ -16,9 +16,9 @@ export function ServiceDelivery() {
                     <h2 className="text-3xl font-bold tracking-tight mb-12 text-slate-900">
                         O que entregamos no tráfego pago
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 text-left">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                         {deliverables.map((item, index) => (
-                            <div key={index} className="p-6 rounded-2xl border bg-slate-50/50 hover:border-primary/50 transition-colors group">
+                            <div key={index} className="p-6 rounded-2xl border bg-slate-50/50 hover:border-primary/50 transition-colors group flex flex-col items-center text-center">
                                 <item.icon className="h-8 w-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
                                 <h3 className="text-lg font-semibold text-slate-800 leading-tight">{item.title}</h3>
                             </div>

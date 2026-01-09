@@ -1,11 +1,11 @@
-import { CheckCircle2 } from "lucide-react";
+import { Target, TrendingUp, AlertCircle, DollarSign } from "lucide-react";
 
 export function ServiceAudience() {
     const points = [
-        "Quer gerar leads qualificados",
-        "Precisa aumentar vendas ou pedidos de orçamento",
-        "Já tentou anunciar e não teve resultado",
-        "Quer parar de gastar dinheiro sem estratégia"
+        { text: "Quer gerar leads qualificados", icon: Target },
+        { text: "Precisa aumentar vendas ou pedidos de orçamento", icon: TrendingUp },
+        { text: "Já tentou anunciar e não teve resultado", icon: AlertCircle },
+        { text: "Quer parar de gastar dinheiro sem estratégia", icon: DollarSign }
     ];
 
     return (
@@ -17,9 +17,9 @@ export function ServiceAudience() {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {points.map((point, index) => (
-                            <div key={index} className="flex items-center gap-4 p-5 bg-white rounded-2xl border shadow-sm text-left">
-                                <CheckCircle2 className="h-6 w-6 text-primary shrink-0" />
-                                <p className="text-lg text-slate-700 font-medium">{point}</p>
+                            <div key={index} className="flex flex-col items-center gap-4 p-5 bg-white rounded-2xl border shadow-sm text-center">
+                                <point.icon className="h-6 w-6 text-primary shrink-0" />
+                                <p className="text-lg text-slate-700 font-medium">{point.text}</p>
                             </div>
                         ))}
                     </div>
