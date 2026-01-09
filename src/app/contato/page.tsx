@@ -12,26 +12,24 @@ export default function ContactPage() {
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section - Ultra Clean */}
-            <section className="relative py-24 lg:py-32 overflow-hidden">
+            <section className="relative py-24 lg:py-32 overflow-hidden bg-white border-b">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full">
                     <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
                     <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px]" />
                 </div>
 
-                <div className="container mx-auto px-4 relative max-w-7xl">
-                    <div className="max-w-4xl">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-bold uppercase tracking-widest mb-8">
-                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                            Estamos Online
-                        </div>
-                        <h1 className="text-4xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tight">
-                            Vamos tirar sua ideia <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-slate-500">do papel hoje.</span>
-                        </h1>
-                        <p className="text-xl md:text-2xl text-slate-500 leading-relaxed font-medium max-w-2xl">
-                            Conte pra gente o que você precisa. Nossa equipe técnica vai analisar seu caso e retornar com uma solução estratégica e personalizada.
-                        </p>
+                <div className="container mx-auto px-4 relative max-w-5xl text-center">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-bold uppercase tracking-widest mb-8">
+                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                        Estamos Online
                     </div>
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tight">
+                        Vamos tirar sua ideia <br />
+                        <span className="text-primary">do papel hoje.</span>
+                    </h1>
+                    <p className="text-lg md:text-xl text-slate-500 leading-relaxed font-medium max-w-2xl mx-auto">
+                        Conte pra gente o que você precisa. Nossa equipe técnica vai analisar seu caso e retornar com uma solução estratégica e personalizada.
+                    </p>
                 </div>
             </section>
 
