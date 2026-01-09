@@ -17,7 +17,7 @@ export function ServiceAudience() {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {audiencies.map((point, index) => (
-                            <div key={index} className="flex items-center gap-4 p-5 bg-white rounded-2xl border shadow-sm text-left">
+                            <div key={index} className="flex flex-col items-center gap-4 p-5 bg-white rounded-2xl border shadow-sm text-center">
                                 <CheckCircle2 className="h-6 w-6 text-primary shrink-0" />
                                 <p className="text-lg text-slate-700 font-medium">{point}</p>
                             </div>
