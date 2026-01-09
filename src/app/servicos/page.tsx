@@ -58,9 +58,9 @@ export default function ServicesPage() {
                             <Link
                                 key={index}
                                 href={service.link}
-                                className="group relative bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-primary/10 transition-all hover:-translate-y-2 flex flex-col h-full"
+                                className="group relative bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-primary/10 transition-all hover:-translate-y-2 flex flex-col items-center text-center h-full"
                             >
-                                <div className={`w-14 h-14 ${service.color} border rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform`}>
+                                <div className={`w-14 h-14 ${service.color} border rounded-2xl flex items-center justify-center mb-8 mx-auto shadow-sm group-hover:scale-110 transition-transform`}>
                                     <service.icon className="w-6 h-6" />
                                 </div>
 
@@ -72,7 +72,7 @@ export default function ServicesPage() {
                                     {service.description}
                                 </p>
 
-                                <ul className="space-y-3 mb-10">
+                                <ul className="space-y-3 mb-10 flex flex-col items-center">
                                     {service.features.map((feature, fIndex) => (
                                         <li key={fIndex} className="flex items-center gap-2 text-sm text-slate-600 font-semibold">
                                             <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
@@ -81,7 +81,7 @@ export default function ServicesPage() {
                                     ))}
                                 </ul>
 
-                                <div className="flex items-center gap-2 text-primary font-bold uppercase text-[10px] tracking-[0.2em]">
+                                <div className="flex items-center justify-center gap-2 text-primary font-bold uppercase text-[10px] tracking-[0.2em]">
                                     Detalhes do Serviço <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                                 </div>
                             </Link>

@@ -50,9 +50,9 @@ export function BentoGrid() {
           <Link
             key={service.title}
             href={service.href}
-            className="group relative overflow-hidden rounded-3xl border bg-card p-6 transition-all hover:shadow-lg hover:-translate-y-1 h-full flex flex-col justify-between"
+            className="group relative overflow-hidden rounded-3xl border bg-card p-6 transition-all hover:shadow-lg hover:-translate-y-1 h-full flex flex-col items-center text-center"
           >
-            <div>
+            <div className="flex flex-col items-center">
               <span className={cn("inline-flex h-12 w-12 items-center justify-center rounded-2xl mb-4", service.color)}>
                 <service.icon className="h-6 w-6" />
               </span>
@@ -62,7 +62,7 @@ export function BentoGrid() {
               </p>
             </div>
 
-            <div className="flex justify-end mt-6">
+            <div className="flex justify-center mt-auto pt-6">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border bg-background text-muted-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                 <ArrowUpRight className="h-5 w-5" />
               </span>
