@@ -16,7 +16,7 @@ export function Navbar() {
                 <div className="flex items-center gap-2 md:gap-4 flex-1 md:flex-none">
                     <MobileMenu />
                     <Link className="flex items-center space-x-2" href="/">
-                        <span className="font-bold font-heading text-sm md:text-base whitespace-nowrap">iTech Soluções</span>
+                        <span className="font-bold font-heading text-xs sm:text-sm md:text-base whitespace-nowrap">iTech Soluções</span>
                     </Link>
                 </div>
 

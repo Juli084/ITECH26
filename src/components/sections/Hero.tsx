@@ -26,7 +26,7 @@ export function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground max-w-4xl mb-6"
+                    className="text-3xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground max-w-4xl mb-6"
                 >
                     Tecnologia que <span className="text-primary/80">impulsiona</span> o seu crescimento.
                 </motion.h1>

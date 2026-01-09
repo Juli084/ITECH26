@@ -24,7 +24,7 @@ export default function ContactPage() {
                             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                             Estamos Online
                         </div>
-                        <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tight">
+                        <h1 className="text-4xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tight">
                             Vamos tirar sua ideia <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-slate-500">do papel hoje.</span>
                         </h1>
@@ -121,7 +121,7 @@ export default function ContactPage() {
                         <div className="flex-1 w-full">
                             <div className="relative group">
                                 <div className="absolute -inset-1 bg-gradient-to-r from-primary/5 to-primary/10 rounded-[3rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
-                                <div className="relative bg-white border border-slate-100 rounded-[2.5rem] p-8 md:p-16 shadow-2xl shadow-slate-200/50">
+                                <div className="relative bg-white border border-slate-100 rounded-[2.5rem] p-6 md:p-16 shadow-2xl shadow-slate-200/50">
                                     <div className="mb-12">
                                         <h2 className="text-3xl font-black text-slate-900 mb-4">Mande sua mensagem</h2>
                                         <p className="text-slate-500 font-medium text-lg leading-relaxed">
