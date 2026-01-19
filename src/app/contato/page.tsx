@@ -1,137 +1,103 @@
+
+"use client";
+
+import { motion } from "framer-motion";
 import { ContactForm } from "@/components/sections/ContactForm";
-import { Mail, MessageCircle, Clock, CheckCircle2, ShieldCheck, Instagram, Linkedin, MapPin } from "lucide-react";
-import { SITE_CONFIG } from "@/lib/constants";
+import { Mail, MessageCircle, Clock, Instagram, Linkedin, MapPin, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
-export const metadata = {
-    title: "Contato | iTech Soluções Digitais",
-    description: "Entre em contato com a iTech. Vamos analisar sua necessidade e retornar com a melhor solução tecnológica.",
-};
+const FadeInUp = ({ children, delay = 0 }: { children: React.ReactNode, delay?: number }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay }}
+    >
+        {children}
+    </motion.div>
+);
 
 export default function ContactPage() {
     return (
-        <div className="min-h-screen bg-white">
-            {/* Hero Section - Ultra Clean */}
-            <section className="relative py-24 lg:py-32 overflow-hidden bg-white border-b">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full">
-                    <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px]" />
+        <div className="min-h-screen bg-white selection:bg-primary selection:text-white">
+
+            {/* 1. Hero Section - Refinado e Legível */}
+            <section className="relative py-24 flex items-center justify-center overflow-hidden bg-slate-950">
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src="/images/hero_bg_tech.png"
+                        alt="Background Tech"
+                        className="w-full h-full object-cover opacity-20 grayscale"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 to-slate-950" />
                 </div>
 
-                <div className="container mx-auto px-4 relative max-w-5xl text-center">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-bold uppercase tracking-widest mb-8">
-                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                        Estamos Online
-                    </div>
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tight">
-                        Vamos tirar sua ideia <br />
-                        <span className="text-primary">do papel hoje.</span>
-                    </h1>
-                    <p className="text-lg md:text-xl text-slate-500 leading-relaxed font-medium max-w-2xl mx-auto">
-                        Conte pra gente o que você precisa. Nossa equipe técnica vai analisar seu caso e retornar com uma solução estratégica e personalizada.
-                    </p>
+                <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
+                    <FadeInUp>
+                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
+                            Fale com a <span className="text-blue-400">iTech</span> <br className="sm:hidden" /> Soluções Digitais
+                        </h1>
+                        <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                            Atendimento especializado para transformar seus projetos em realidade. Escolha o canal ideal abaixo.
+                        </p>
+                    </FadeInUp>
                 </div>
             </section>
 
-            <section className="pb-32">
-                <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 items-start">
+            {/* 2. Grid de Canais de Contato Centralizados (2 Colunas) */}
+            <section className="py-20 bg-white">
+                <div className="container mx-auto px-6 md:px-12 max-w-6xl">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24 max-w-4xl mx-auto">
 
-                        {/* Left Column: Premium Contact Cards */}
-                        <div className="lg:w-[380px] space-y-10">
-                            <div className="space-y-6">
-                                <h2 className="text-sm font-black text-primary uppercase tracking-[0.3em] mb-8">Canais Diretos</h2>
+                        {/* WhatsApp */}
+                        <FadeInUp delay={0.1}>
+                            <Link
+                                href="https://wa.me/5515997534529"
+                                target="_blank"
+                                className="group flex flex-col items-center text-center p-10 rounded-[2.5rem] bg-slate-50 border border-slate-100 hover:bg-white hover:border-primary/20 hover:shadow-2xl transition-all duration-500 h-full"
+                            >
+                                <div className="h-20 w-20 rounded-2xl bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 mb-8 shadow-inner">
+                                    <MessageCircle className="h-10 w-10" />
+                                </div>
+                                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">WhatsApp Business</h3>
+                                <p className="text-2xl font-bold text-slate-900 mb-4 tracking-tight">(15) 99753-4529</p>
+                                <p className="text-slate-500 text-sm leading-relaxed max-w-[240px]">Atendimento instantâneo para dúvidas e suporte técnico rápido.</p>
+                                <div className="mt-8 flex items-center gap-2 text-primary font-bold text-[11px] uppercase tracking-widest">
+                                    Chamar agora <ArrowUpRight className="h-4 w-4" />
+                                </div>
+                            </Link>
+                        </FadeInUp>
 
-                                <div className="grid gap-4">
-                                    {/* WhatsApp Card - Premium Card Style */}
-                                    <Link
-                                        href={SITE_CONFIG.whatsappLink}
-                                        target="_blank"
-                                        className="group relative p-1 rounded-[2rem] bg-gradient-to-br from-green-400 to-green-600 transition-all hover:scale-[1.02] active:scale-[0.98]"
-                                    >
-                                        <div className="bg-white rounded-[1.9rem] p-6 flex items-center gap-5">
-                                            <div className="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center transition-all group-hover:rotate-12">
-                                                <MessageCircle className="w-7 h-7" />
-                                            </div>
-                                            <div className="flex-1">
-                                                <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">WhatsApp</p>
-                                                <p className="text-xl font-black text-slate-900">Conversar Agora</p>
-                                            </div>
-                                        </div>
-                                    </Link>
-
-                                    {/* Email Card */}
-                                    <div className="group p-6 rounded-[2rem] bg-slate-50 border border-slate-100 hover:bg-white hover:border-white hover:shadow-2xl hover:shadow-slate-200/50 transition-all">
-                                        <div className="flex items-center gap-5">
-                                            <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-primary rounded-2xl flex items-center justify-center transition-all group-hover:-translate-y-1">
-                                                <Mail className="w-7 h-7" />
-                                            </div>
-                                            <div>
-                                                <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">E-mail</p>
-                                                <p className="text-lg font-bold text-slate-900">{SITE_CONFIG.email}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Schedule Card */}
-                                    <div className="p-6 rounded-[2rem] bg-slate-50/50 border border-dashed border-slate-200 flex items-center gap-5">
-                                        <div className="w-14 h-14 bg-slate-100/50 text-slate-400 rounded-2xl flex items-center justify-center">
-                                            <Clock className="w-6 h-6" />
-                                        </div>
-                                        <div>
-                                            <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Atendimento</p>
-                                            <p className="text-sm font-bold text-slate-600">Seg à Sex: 09h — 18h</p>
-                                        </div>
-                                    </div>
+                        {/* E-mail */}
+                        <FadeInUp delay={0.2}>
+                            <div className="group flex flex-col items-center text-center p-10 rounded-[2.5rem] bg-slate-50 border border-slate-100 hover:bg-white hover:border-blue-200 hover:shadow-2xl transition-all duration-500 h-full">
+                                <div className="h-20 w-20 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 mb-8 shadow-inner">
+                                    <Mail className="h-10 w-10" />
+                                </div>
+                                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">E-mail Corporativo</h3>
+                                <p className="text-sm font-bold text-slate-900 mb-4 break-all">contato@itechsolucoesdigitais.com</p>
+                                <p className="text-slate-500 text-sm leading-relaxed max-w-[240px]">Ideal para orçamentos formais e propostas de parcerias detalhadas.</p>
+                                <div className="mt-8 flex items-center gap-2 text-blue-600 font-bold text-[11px] uppercase tracking-widest">
+                                    Enviar Mensagem
                                 </div>
                             </div>
+                        </FadeInUp>
+                    </div>
 
-                            {/* Social & Proof */}
-                            <div className="pt-10 border-t border-slate-100 space-y-8">
-                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">Siga a iTech</h3>
-                                <div className="flex gap-4">
-                                    <Link href="#" className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all">
-                                        <Instagram className="w-5 h-5" />
-                                    </Link>
-                                    <Link href="#" className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all">
-                                        <Linkedin className="w-5 h-5" />
-                                    </Link>
-                                    <Link href="#" className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all">
-                                        <MapPin className="w-5 h-5" />
-                                    </Link>
-                                </div>
-
-                                <div className="p-8 rounded-[2rem] bg-primary text-white space-y-5 relative overflow-hidden shadow-2xl shadow-primary/20">
-                                    <div className="relative z-10 flex items-start gap-4">
-                                        <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                            <ShieldCheck className="w-6 h-6 text-primary-foreground" />
-                                        </div>
-                                        <p className="text-sm font-medium leading-relaxed">
-                                            Sua mensagem será analisada por um especialista técnico, não por um robô.
-                                        </p>
-                                    </div>
-                                    <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-white/5 rounded-full blur-2xl" />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Right Column: The Form - Apple Card Style */}
-                        <div className="flex-1 w-full">
-                            <div className="relative group">
-                                <div className="absolute -inset-1 bg-gradient-to-r from-primary/5 to-primary/10 rounded-[3rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
-                                <div className="relative bg-white border border-slate-100 rounded-[2.5rem] p-6 md:p-16 shadow-2xl shadow-slate-200/50">
-                                    <div className="mb-12">
-                                        <h2 className="text-3xl font-black text-slate-900 mb-4">Mande sua mensagem</h2>
-                                        <p className="text-slate-500 font-medium text-lg leading-relaxed">
-                                            Preencha os detalhes abaixo e daremos o primeiro passo para o seu sucesso digital.
-                                        </p>
+                    {/* 3. Formulário Centralizado */}
+                    <FadeInUp delay={0.4}>
+                        <div className="max-w-4xl mx-auto">
+                            <div className="relative group p-1 rounded-[3rem] bg-gradient-to-b from-slate-100 to-transparent">
+                                <div className="bg-white border border-slate-100 rounded-[2.8rem] p-8 md:p-16 shadow-2xl shadow-slate-200/50">
+                                    <div className="text-center mb-16">
+                                        <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tighter">Solicitar Orçamento</h2>
+                                        <p className="text-slate-500 font-medium text-lg">Preencha o formulário e tenha uma análise humanizada em até 24h.</p>
                                     </div>
                                     <ContactForm />
                                 </div>
                             </div>
                         </div>
-
-                    </div>
+                    </FadeInUp>
                 </div>
             </section>
         </div>

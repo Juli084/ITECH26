@@ -19,14 +19,15 @@ export function AboutTeaser() {
                 </div>
 
                 <div className="lg:w-1/2 space-y-6">
-                    <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Quem Somos</h2>
+                    <div>
+                        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Quem Somos</h2>
+                        <h3 className="text-xl text-primary font-medium mt-2">Simplificando a tecnologia para pessoas e empresas</h3>
+                    </div>
                     <p className="text-lg text-muted-foreground leading-relaxed">
-                        A iTech Soluções Digitais nasceu com um propósito claro:
-                        <span className="text-foreground font-medium"> Simplificar a tecnologia.</span>
+                        A iTech Soluções Digitais nasceu como uma assistência técnica especializada em Apple e evoluiu para um hub de soluções digitais.
                     </p>
                     <p className="text-muted-foreground leading-relaxed">
-                        Começamos como especialistas apaixonados pelo ecossistema Apple e evoluímos para nos tornar um hub completo.
-                        Hoje, unimos a precisão técnica da manutenção de hardware com a criatividade do desenvolvimento de software e marketing.
+                        Hoje, ajudamos clientes em Sorocaba e região com assistência técnica para iPhone, desenvolvimento de sites, web apps e gestão de tráfego pago, sempre com foco em qualidade, clareza e resultados sustentáveis.
                     </p>
                     <div className="pt-4">
                         <Link href="/sobre">

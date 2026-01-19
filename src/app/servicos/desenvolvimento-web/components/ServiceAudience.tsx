@@ -1,28 +1,41 @@
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, TrendingUp, ShieldCheck, MonitorSmartphone } from "lucide-react";
 
 export function ServiceAudience() {
-    const audiencies = [
-        "Precisa de um site profissional para sua empresa",
-        "Quer gerar leads pela internet",
-        "Precisa de um sistema simples para organizar seu negócio",
-        "Busca performance, segurança e escalabilidade"
+    const audience = [
+        {
+            text: "Precisa de um site profissional para sua empresa",
+            icon: MonitorSmartphone,
+        },
+        {
+            text: "Quer gerar leads e vendas pela internet",
+            icon: TrendingUp,
+        },
+        {
+            text: "Precisa de um sistema simples ou personalizado para organizar seu negócio",
+            icon: CheckCircle2,
+        },
+        {
+            text: "Busca performance, segurança e escalabilidade",
+            icon: ShieldCheck,
+        },
     ];
 
     return (
-        <section className="py-24 bg-slate-50">
-            <div className="container mx-auto px-4">
-                <div className="max-w-3xl mx-auto text-center">
-                    <h2 className="text-3xl font-bold tracking-tight mb-12 text-slate-900">
-                        Esse serviço é ideal para você que:
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {audiencies.map((point, index) => (
-                            <div key={index} className="flex flex-col items-center gap-4 p-5 bg-white rounded-2xl border shadow-sm text-center">
-                                <CheckCircle2 className="h-6 w-6 text-primary shrink-0" />
-                                <p className="text-lg text-slate-700 font-medium">{point}</p>
+        <section className="py-24 bg-white border-y border-slate-100">
+            <div className="container mx-auto px-6 md:px-12 lg:px-20 text-center">
+                <h2 className="text-3xl font-bold tracking-tight mb-16 text-slate-900">
+                    Esse serviço é ideal para você que:
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {audience.map((item, index) => (
+                        <div key={index} className="flex flex-col items-center">
+                            <div className="h-16 w-16 mb-6 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 shadow-sm border border-purple-100">
+                                <item.icon className="h-8 w-8" />
                             </div>
-                        ))}
-                    </div>
+                            <p className="text-lg font-medium text-slate-700 max-w-xs">{item.text}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

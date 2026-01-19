@@ -30,8 +30,26 @@ export default async function BlogPage() {
                         <Link key={post.id} href={`/blog/${post.slug}`}>
                             <Card className="h-full overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1">
                                 <CardHeader className="p-0">
-                                    <div className="aspect-video bg-muted flex items-center justify-center text-muted-foreground text-3xl font-bold italic">
-                                        iTech News
+                                    <div className="aspect-video bg-muted relative overflow-hidden group">
+                                        {post.featuredImage ? (
+                                            post.mediaType === 'VIDEO' ? (
+                                                <div className="absolute inset-0 flex items-center justify-center bg-slate-900">
+                                                    <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform">
+                                                        <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-white border-b-[8px] border-b-transparent ml-1" />
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <img
+                                                    src={(post as any).featuredImage}
+                                                    alt={post.title}
+                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                />
+                                            )
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-muted-foreground text-3xl font-bold italic">
+                                                iTech News
+                                            </div>
+                                        )}
                                     </div>
                                 </CardHeader>
                                 <CardContent className="p-6 space-y-3">

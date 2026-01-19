@@ -2,36 +2,37 @@
 
 import { ArrowUpRight, BarChart, Laptop, ShoppingBag, Smartphone } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const services = [
   {
-    title: "Assistência iPhone",
-    description: "Especialistas em reparos Apple. Telas, baterias e placas com garantia.",
-    icon: Smartphone,
-    color: "bg-blue-500/10 text-blue-500",
-    href: "/servicos/assistencia-iphone",
-  },
-  {
-    title: "Desenvolvimento Web",
-    description: "Sites e Web Apps modernos que convertem visitantes em clientes.",
-    icon: Laptop,
-    color: "bg-purple-500/10 text-purple-500",
-    href: "/servicos/desenvolvimento-web",
-  },
-  {
-    title: "Tráfego Pago",
-    description: "Gestão estratégica de ADS para escalar suas vendas.",
+    title: "Tráfego Pago (Google Ads e Meta Ads)",
+    description: "Planejamento, criação e gestão de campanhas de anúncios focadas em leads qualificados, vendas e retorno sobre investimento para negócios locais e digitais.",
     icon: BarChart,
-    color: "bg-green-500/10 text-green-500",
     href: "/servicos/trafego-pago",
+    image: "/images/service_marketing.png",
   },
   {
-    title: "Loja de Acessórios",
-    description: "Películas, cases e carregadores originais.",
+    title: "Desenvolvimento Web e Web Apps",
+    description: "Criação de sites institucionais, landing pages e web apps modernos, rápidos e responsivos, desenvolvidos com foco em usabilidade, SEO e conversão.",
+    icon: Laptop,
+    href: "/servicos/desenvolvimento-web",
+    image: "/images/service_webdev.png",
+  },
+  {
+    title: "Assistência Técnica Especializada em iPhone",
+    description: "Serviço de manutenção e reparo de iPhones em Sorocaba, incluindo troca de tela, bateria, diagnóstico avançado e soluções em placa, com garantia e atendimento transparente.",
+    icon: Smartphone,
+    href: "/servicos/assistencia-iphone",
+    image: "/images/service_iphone.png",
+  },
+  {
+    title: "Loja de Acessórios para iPhone",
+    description: "Venda de películas, capas, carregadores e acessórios compatíveis com dispositivos Apple, priorizando qualidade, proteção e durabilidade.",
     icon: ShoppingBag,
-    color: "bg-orange-500/10 text-orange-500",
     href: "/acessorios",
+    image: "/images/service_accessories.png",
   },
 ];
 
@@ -39,9 +40,10 @@ export function BentoGrid() {
   return (
     <section className="container mx-auto px-4 py-24">
       <div className="mb-12 text-center">
-        <h2 className="text-3xl font-bold tracking-tight md:text-4xl mb-4">Nossas Soluções</h2>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Um ecossistema completo de serviços digitais projetado para atender todas as necessidades da sua empresa e dispositivos.
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl mb-4">Nossas Soluções em Tecnologia e Marketing Digital</h2>
+        <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          Serviços pensados para atender desde necessidades técnicas até estratégias de crescimento digital. <br className="hidden md:block" />
+          Atuamos de forma integrada para garantir qualidade técnica, presença online profissional e resultados reais.
         </p>
       </div>
 
@@ -50,26 +52,32 @@ export function BentoGrid() {
           <Link
             key={service.title}
             href={service.href}
-            className="group relative overflow-hidden rounded-3xl border bg-card p-6 transition-all hover:shadow-lg hover:-translate-y-1 h-full flex flex-col items-center text-center"
+            className="group relative overflow-hidden rounded-3xl border bg-card h-[400px] flex flex-col justify-end p-6 transition-all hover:shadow-xl hover:-translate-y-1"
           >
-            <div className="flex flex-col items-center">
-              <span className={cn("inline-flex h-12 w-12 items-center justify-center rounded-2xl mb-4", service.color)}>
-                <service.icon className="h-6 w-6" />
+            {/* Background Image */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src={service.image}
+                alt={service.title}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+            </div>
+
+            <div className="relative z-10 flex flex-col items-start text-left">
+              <span className={cn("inline-flex h-10 w-10 items-center justify-center rounded-xl mb-3 backdrop-blur-md bg-white/10 text-white border border-white/20")}>
+                <service.icon className="h-5 w-5" />
               </span>
-              <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <h3 className="text-lg font-bold mb-2 text-white leading-tight">{service.title}</h3>
+              <p className="text-gray-300 text-xs leading-relaxed line-clamp-3">
                 {service.description}
               </p>
-            </div>
 
-            <div className="flex justify-center mt-auto pt-6">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border bg-background text-muted-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                <ArrowUpRight className="h-5 w-5" />
-              </span>
+              <div className="mt-4 flex items-center text-primary-foreground/80 text-sm font-medium opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                Saiba mais <ArrowUpRight className="ml-1 h-4 w-4" />
+              </div>
             </div>
-
-            {/* Hover Gradient Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
           </Link>
         ))}
       </div>

@@ -1,5 +1,5 @@
 import { ServiceHero } from "./components/ServiceHero";
-import { ServiceDelivery } from "./components/ServiceDelivery";
+import { ServiceDashboard } from "./components/ServiceDashboard";
 import { ServiceAudience } from "./components/ServiceAudience";
 import { ServiceProcess } from "./components/ServiceProcess";
 import { ServiceCTA } from "./components/ServiceCTA";
@@ -14,7 +14,7 @@ export default function TrafegoPagoPage() {
     return (
         <main className="min-h-screen">
             <ServiceHero />
-            <ServiceDelivery />
+            <ServiceDashboard />
             <ServiceAudience />
             <ServiceProcess />
             <ServiceCTA />

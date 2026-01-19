@@ -1,26 +1,26 @@
 "use client";
 
-import { CheckCircle2, ShieldCheck, Zap, HeartHandshake } from "lucide-react";
+import { CheckCircle2, Zap, HeartHandshake, Lightbulb } from "lucide-react";
 
 const reasons = [
     {
-        title: "Especialistas Certificados",
-        description: "Técnicos altamente capacitados em ecossistema Apple e desenvolvimento moderno.",
-        icon: ShieldCheck,
+        title: "Especialistas em Tecnologia",
+        description: "Conhecimento técnico no ecossistema Apple, desenvolvimento web moderno e estratégias de tráfego pago baseadas em dados.",
+        icon: Lightbulb,
     },
     {
         title: "Atendimento Transparente",
-        description: "Você acompanha cada etapa. Sem letras miúdas, taxas escondidas ou surpresas.",
+        description: "Comunicação clara em todas as etapas, prazos definidos e total acompanhamento do serviço.",
         icon: HeartHandshake,
     },
     {
-        title: "Agilidade na Entrega",
-        description: "Sabemos que seu tempo é valioso. Reparos e projetos entregues no prazo combinado.",
+        title: "Agilidade e Organização",
+        description: "Processos bem definidos para garantir eficiência na entrega de reparos, sites e campanhas.",
         icon: Zap,
     },
     {
-        title: "Garantia Real",
-        description: "Oferecemos garantia estendida em nossos serviços e suporte pós-venda dedicado.",
+        title: "Garantia e Suporte",
+        description: "Garantia nos serviços prestados e suporte pós-venda para garantir segurança e confiança.",
         icon: CheckCircle2,
     },
 ];
@@ -29,10 +29,11 @@ export function WhyChooseUs() {
     return (
         <section className="bg-muted/30 py-24 px-4">
             <div className="container mx-auto">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl font-bold tracking-tight md:text-4xl mb-4">Por que escolher a iTech?</h2>
-                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Não somos apenas mais uma assistência ou agência. Somos parceiros do seu sucesso digital.
+                <div className="text-center mb-16 px-4">
+                    <h2 className="text-3xl font-bold tracking-tight md:text-4xl mb-4">Por que escolher a iTech Soluções Digitais?</h2>
+                    <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                        Experiência técnica, atendimento claro e foco em resultado. <br className="hidden md:block" />
+                        Trabalhamos para entregar soluções confiáveis tanto para clientes finais quanto para empresas que precisam de tecnologia e marketing digital.
                     </p>
                 </div>
 
