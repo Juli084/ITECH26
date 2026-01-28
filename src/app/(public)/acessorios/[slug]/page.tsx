@@ -1,9 +1,10 @@
 import { getProductBySlug } from "@/app/actions/products";
 export const dynamic = 'force-dynamic';
 import { notFound } from "next/navigation";
-import { Check, ShoppingCart, ArrowLeft, ShieldCheck, Truck, Film } from "lucide-react";
+import { Check, ArrowLeft, ShieldCheck, Truck } from "lucide-react";
 import Link from "next/link";
 import { ProductActions } from "../components/ProductActions";
+import { ProductGallery } from "../components/ProductGallery";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -40,43 +41,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
                     {/* Gallery - Premium Look */}
-                    <div className="space-y-6">
-                        <div className="aspect-square bg-slate-50 border border-slate-100 rounded-[2.5rem] overflow-hidden flex items-center justify-center p-8 group">
-                            {product.media && product.media.length > 0 ? (
-                                product.media[0].type === "VIDEO" ? (
-                                    <video
-                                        src={product.media[0].url}
-                                        controls
-                                        className="w-full h-full object-contain"
-                                    />
-                                ) : (
-                                    <img
-                                        src={product.media[0].url}
-                                        alt={product.name}
-                                        className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-700"
-                                    />
-                                )
-                            ) : (
-                                <ShoppingCart className="w-32 h-32 text-slate-100" />
-                            )}
-                        </div>
-
-                        {product.media && product.media.length > 1 && (
-                            <div className="grid grid-cols-4 gap-4">
-                                {product.media.map((item, i) => (
-                                    <div key={i} className="aspect-square bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden p-2 cursor-pointer hover:border-primary/50 transition-colors">
-                                        {item.type === "VIDEO" ? (
-                                            <div className="w-full h-full flex items-center justify-center bg-slate-900 rounded-lg">
-                                                <Film className="w-6 h-6 text-white" />
-                                            </div>
-                                        ) : (
-                                            <img src={item.url} alt="" className="w-full h-full object-contain mix-blend-multiply" />
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
+                    <ProductGallery
+                        media={product.media || []}
+                        productName={product.name}
+                    />
 
                     {/* Info Side */}
                     <div className="flex flex-col">

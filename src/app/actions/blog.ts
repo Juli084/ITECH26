@@ -79,7 +79,6 @@ export async function createPost(formData: FormData) {
         revalidatePath("/dashboard/posts");
         return { success: true };
     } catch (error) {
-        console.error("Post creation error:", error);
         return { error: "Erro ao criar post ou salvar arquivo." };
     }
 }
@@ -97,7 +96,6 @@ export async function getPosts(onlyPublished = false) {
             .from(posts)
             .orderBy(desc(posts.createdAt));
     } catch (error) {
-        console.error("Error fetching posts:", error);
         return [];
     }
 }

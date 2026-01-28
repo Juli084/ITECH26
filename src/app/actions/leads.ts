@@ -37,7 +37,6 @@ export async function createLead(data: {
 
         return { success: true };
     } catch (error) {
-        console.error("Lead creation error:", error);
         return { error: "Erro ao enviar mensagem. Tente novamente." };
     }
 }
@@ -47,7 +46,6 @@ export async function getLeads() {
         const allLeads = await db.select().from(leads).orderBy(leads.createdAt);
         return allLeads;
     } catch (error) {
-        console.error("Error fetching leads:", error);
         return [];
     }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 
 export interface CartItem {
     id: number;
@@ -20,21 +20,29 @@ interface CartContextType {
     clearCart: () => void;
     totalItems: number;
     totalPrice: number;
+    isOpen: boolean;
+    openCart: () => void;
+    closeCart: () => void;
+    toggleCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
     const [items, setItems] = useState<CartItem[]>([]);
+    const [isOpen, setIsOpen] = useState(false);
 
-    // Carregar do localStorage ao iniciar
+    const openCart = useCallback(() => setIsOpen(true), []);
+    const closeCart = useCallback(() => setIsOpen(false), []);
+    const toggleCart = useCallback(() => setIsOpen((prev) => !prev), []);
+
     useEffect(() => {
         const savedCart = localStorage.getItem("itech_cart");
         if (savedCart) {
             try {
                 setItems(JSON.parse(savedCart));
             } catch (e) {
-                console.error("Erro ao carregar carrinho", e);
+                // Silent fail - invalid cart data will be ignored
             }
         }
     }, []);
@@ -44,7 +52,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem("itech_cart", JSON.stringify(items));
     }, [items]);
 
-    const addItem = (newItem: CartItem) => {
+    const addItem = useCallback((newItem: CartItem) => {
         setItems((prev) => {
             const existing = prev.find((i) => i.id === newItem.id);
             if (existing) {
@@ -54,13 +62,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             }
             return [...prev, newItem];
         });
-    };
+    }, []);
 
-    const removeItem = (id: number) => {
+    const removeItem = useCallback((id: number) => {
         setItems((prev) => prev.filter((i) => i.id !== id));
-    };
+    }, []);
 
-    const updateQuantity = (id: number, quantity: number) => {
+    const updateQuantity = useCallback((id: number, quantity: number) => {
         if (quantity <= 0) {
             removeItem(id);
             return;
@@ -68,9 +76,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         setItems((prev) =>
             prev.map((i) => (i.id === id ? { ...i, quantity } : i))
         );
-    };
+    }, [removeItem]);
 
-    const clearCart = () => setItems([]);
+    const clearCart = useCallback(() => setItems([]), []);
 
     const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
     const totalPrice = items.reduce((acc, item) => {
@@ -88,10 +96,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                 clearCart,
                 totalItems,
                 totalPrice,
+                isOpen,
+                openCart,
+                closeCart,
+                toggleCart,
             }}
         >
             {children}
         </CartContext.Provider>
+
     );
 }
 

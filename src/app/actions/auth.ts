@@ -50,7 +50,6 @@ export async function registerUser(formData: FormData) {
 
         return { success: true };
     } catch (error) {
-        console.error("Registration error:", error);
         return { error: "Erro ao criar conta. Tente novamente." };
     }
 }

@@ -53,6 +53,7 @@ export const productMedia = pgTable('product_media', {
   displayOrder: integer('display_order').notNull().default(0),
 });
 
+
 export const siteSettings = pgTable('site_settings', {
   id: serial('id').primaryKey(),
   siteName: text('site_name').notNull().default('iTech Soluções Digitais'),
@@ -62,4 +63,13 @@ export const siteSettings = pgTable('site_settings', {
   instagramUrl: text('instagram_url'),
   linkedinUrl: text('linkedin_url'),
   updatedAt: timestamp('updated_at').defaultNow(),
+});
+
+export const projects = pgTable('projects', {
+  id: serial('id').primaryKey(),
+  title: text('title').notNull(),
+  description: text('description'),
+  imageUrl: text('image_url').notNull(),
+  projectUrl: text('project_url'),
+  createdAt: timestamp('created_at').defaultNow(),
 });

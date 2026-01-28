@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useSession, signOut } from "next-auth/react";
 
-import { CartSheet } from "@/components/cart/CartSheet";
+import { CartTrigger } from "@/components/cart/CartTrigger";
 import { MobileMenu } from "./MobileMenu";
 
 export function Navbar() {
@@ -30,7 +30,7 @@ export function Navbar() {
 
                 <div className="flex items-center justify-end space-x-2 flex-1">
                     <nav className="flex items-center gap-1 md:gap-4">
-                        <CartSheet />
+                        <CartTrigger />
                         <div className="hidden sm:flex items-center gap-2">
                             {session ? (
                                 <>

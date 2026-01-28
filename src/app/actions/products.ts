@@ -43,7 +43,6 @@ export async function uploadFile(formData: FormData) {
 
         return { success: true, url: `/uploads/${filename}` };
     } catch (error) {
-        console.error("Error uploading file:", error);
         return { error: "Erro ao fazer upload do arquivo" };
     }
 }
@@ -82,7 +81,6 @@ export async function createProduct(data: z.infer<typeof productSchema>) {
         revalidatePath("/dashboard/produtos");
         return { success: true, product: newProduct };
     } catch (error) {
-        console.error("Error creating product:", error);
         return { error: "Erro ao criar produto" };
     }
 }
@@ -118,7 +116,6 @@ export async function getProducts(includeInactive = false) {
 
         return productsWithImage;
     } catch (error) {
-        console.error("Error fetching products:", error);
         return [];
     }
 }
@@ -152,7 +149,6 @@ export async function getProductBySlug(slug: string, onlyActive = true) {
             media,
         };
     } catch (error) {
-        console.error("Error fetching product by slug:", error);
         return null;
     }
 }
@@ -180,7 +176,6 @@ export async function getProductById(id: number) {
             media,
         };
     } catch (error) {
-        console.error("Error fetching product by id:", error);
         return null;
     }
 }
@@ -224,7 +219,6 @@ export async function updateProduct(id: number, data: z.infer<typeof productSche
         revalidatePath("/dashboard/produtos");
         return { success: true };
     } catch (error) {
-        console.error("Error updating product:", error);
         return { error: "Erro ao atualizar produto" };
     }
 }
@@ -236,7 +230,6 @@ export async function deleteProduct(id: number) {
         revalidatePath("/dashboard/produtos");
         return { success: true };
     } catch (error) {
-        console.error("Error deleting product:", error);
         return { error: "Erro ao excluir produto" };
     }
 }

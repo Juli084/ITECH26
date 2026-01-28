@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import { Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
@@ -11,7 +10,7 @@ export function Footer() {
 
                     {/* Column 1: Brand & Contacts */}
                     <div className="flex flex-col items-center sm:items-start text-center sm:text-left space-y-8">
-                        <div className="h-10 flex items-center"> {/* Fixed height for baseline alignment */}
+                        <div className="h-10 flex items-center">
                             <h3 className="font-bold text-xl tracking-tight text-slate-900">
                                 iTech <span className="text-primary">Soluções</span>
                             </h3>
@@ -46,7 +45,7 @@ export function Footer() {
 
                     {/* Column 2: Services */}
                     <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                        <div className="h-10 flex items-center mb-6"> {/* Matches Column 1 header height */}
+                        <div className="h-10 flex items-center mb-6">
                             <h4 className="font-bold text-slate-900 uppercase tracking-widest text-[11px]">Serviços</h4>
                         </div>
                         <ul className="space-y-4 text-slate-500 font-medium">
@@ -66,7 +65,6 @@ export function Footer() {
                             <li><Link href="/sobre" className="hover:text-primary transition-colors">Sobre a iTech</Link></li>
                             <li><Link href="/blog" className="hover:text-primary transition-colors">Blog & Conteúdo</Link></li>
                             <li><Link href="/contato" className="hover:text-primary transition-colors">Fale Conosco</Link></li>
-                            <li><Link href="/dashboard" className="hover:text-primary transition-colors italic opacity-70">Painel Admin</Link></li>
                         </ul>
                     </div>
 
@@ -77,10 +75,10 @@ export function Footer() {
                         </div>
                         <p className="text-slate-500 mb-8 text-xs leading-relaxed max-w-[200px]">Siga-nos para dicas técnicas e novidades do mundo digital.</p>
                         <div className="flex gap-4">
-                            <Link href="#" className="h-11 w-11 bg-white border border-slate-200 rounded-xl flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-primary/5">
+                            <Link href="https://www.instagram.com/itech_solucoes_digitais/" target="_blank" rel="noopener noreferrer" className="h-11 w-11 bg-white border border-slate-200 rounded-xl flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-primary/5">
                                 <Instagram className="w-5 h-5" />
                             </Link>
-                            <Link href="#" className="h-11 w-11 bg-white border border-slate-200 rounded-xl flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-primary/5">
+                            <Link href="https://linkedin.com/in/julio-rodrigues84/" target="_blank" rel="noopener noreferrer" className="h-11 w-11 bg-white border border-slate-200 rounded-xl flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-primary/5">
                                 <Linkedin className="w-5 h-5" />
                             </Link>
                         </div>

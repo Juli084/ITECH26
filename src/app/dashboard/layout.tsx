@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { LayoutDashboard, Users, FileText, Settings, LogOut, Loader2, Package, Menu, X } from "lucide-react";
+import { LayoutDashboard, Users, FileText, Settings, LogOut, Loader2, Package, Menu, X, Briefcase } from "lucide-react";
 
 export default function DashboardLayout({
     children,
@@ -29,6 +29,7 @@ export default function DashboardLayout({
     const links = [
         { href: "/dashboard", label: "Visão Geral", icon: LayoutDashboard },
         { href: "/dashboard/leads", label: "Leads", icon: Users },
+        { href: "/dashboard/projetos", label: "Portfólio", icon: Briefcase },
         { href: "/dashboard/produtos", label: "Produtos", icon: Package },
         { href: "/dashboard/posts", label: "Blog", icon: FileText },
         { href: "/dashboard/config", label: "Configurações", icon: Settings },

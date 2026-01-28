@@ -47,10 +47,10 @@ async function seed() {
             id: 1,
             siteName: 'iTech Soluções Digitais',
             siteDescription: 'Especialistas em reparos Apple e acessórios premium.',
-            whatsappNumber: '5511999999999',
-            contactEmail: 'contato@itech.com',
-            instagramUrl: 'https://instagram.com/itech',
-            linkedinUrl: 'https://linkedin.com/company/itech'
+            whatsappNumber: '5515997534529',
+            contactEmail: 'contato@itechsolucoesdigitais.com',
+            instagramUrl: 'https://www.instagram.com/itech_solucoes_digitais/',
+            linkedinUrl: 'linkedin.com/in/julio-rodrigues84/'
         }).onConflictDoNothing();
 
         console.log('✨ Seed operations finished! (Clean state)');
