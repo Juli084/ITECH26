@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
 import { AuthProvider } from "@/providers/auth-provider";
 import { CartProvider } from "@/contexts/CartContext";
-import { Footer } from "@/components/layout/Footer";
-import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +17,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "iTech Soluções Digitais",
   description: "Seu hub completo de tecnologia, acessórios e estratégias digitais.",
+  icons: {
+    icon: [
+      { url: '/favicon-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -35,12 +40,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <CartProvider>
-            <Navbar />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-            <WhatsAppButton />
+            {children}
           </CartProvider>
         </AuthProvider>
       </body>
