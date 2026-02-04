@@ -4,23 +4,20 @@ import { db } from "@/db";
 import { products, productMedia } from "@/db/schema";
 import { eq, and, desc } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
 import fs from "fs/promises";
 import path from "path";
 import { writeFile } from "fs/promises";
-
-const productSchema = z.object({
-    name: z.string().min(2, "O nome deve ter pelo menos 2 caracteres"),
-    description: z.string().min(10, "A descrição deve ter pelo menos 10 caracteres"),
-    price: z.number().min(0, "O preço deve ser maior ou igual a zero"),
-    promoPrice: z.number().min(0).optional().nullable(),
-    stockQuantity: z.number().int().min(0),
-    category: z.string().min(1, "Selecione uma categoria"),
-    status: z.enum(["ACTIVE", "INACTIVE"]).default("ACTIVE"),
-    images: z.array(z.string()).optional(),
-});
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { safeAction } from "@/lib/action-utils";
+import { productSchema } from "@/lib/schemas";
 
 export async function uploadFile(formData: FormData) {
+    const session = await getServerSession(authOptions);
+    if (!session || (session.user as any).role !== "ADMIN") {
+        return { error: "Não autorizado" };
+    }
+
     try {
         const file = formData.get("file") as File;
         if (!file) {
@@ -36,7 +33,11 @@ export async function uploadFile(formData: FormData) {
         const uploadDir = path.join(process.cwd(), "public", "uploads");
 
         // Garante que o diretório existe
-        await fs.mkdir(uploadDir, { recursive: true });
+        try {
+            await fs.mkdir(uploadDir, { recursive: true });
+        } catch (error) {
+            // Ignore if exists
+        }
 
         const filepath = path.join(uploadDir, filename);
         await writeFile(filepath, buffer);
@@ -47,43 +48,39 @@ export async function uploadFile(formData: FormData) {
     }
 }
 
-export async function createProduct(data: z.infer<typeof productSchema>) {
-    try {
-        const slug = data.name
-            .toLowerCase()
-            .trim()
-            .replace(/[^\w\s-]/g, "")
-            .replace(/[\s_-]+/g, "-")
-            .replace(/^-+|-+$/g, "");
+export const createProduct = safeAction(productSchema, async (data) => {
+    const slug = data.name
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/[\s_-]+/g, "-")
+        .replace(/^-+|-+$/g, "");
 
-        const [newProduct] = await db.insert(products).values({
-            name: data.name,
-            slug,
-            description: data.description,
-            price: Math.round(data.price * 100), // Converte para centavos
-            promoPrice: data.promoPrice ? Math.round(data.promoPrice * 100) : null,
-            stockQuantity: data.stockQuantity,
-            category: data.category,
-            status: data.status,
-        }).returning();
+    const [newProduct] = await db.insert(products).values({
+        name: data.name,
+        slug,
+        description: data.description,
+        price: Math.round(data.price * 100), // Converte para centavos
+        promoPrice: data.promoPrice ? Math.round(data.promoPrice * 100) : null,
+        stockQuantity: data.stockQuantity,
+        category: data.category,
+        status: data.status,
+    }).returning();
 
-        if (data.images && data.images.length > 0) {
-            const mediaValues = data.images.map((url, index) => ({
-                productId: newProduct.id,
-                url,
-                displayOrder: index,
-                type: url.match(/\.(mp4|webm|ogg)$/i) ? "VIDEO" : "IMAGE",
-            }));
-            await db.insert(productMedia).values(mediaValues);
-        }
-
-        revalidatePath("/acessorios");
-        revalidatePath("/dashboard/produtos");
-        return { success: true, product: newProduct };
-    } catch (error) {
-        return { error: "Erro ao criar produto" };
+    if (data.images && data.images.length > 0) {
+        const mediaValues = data.images.map((url, index) => ({
+            productId: newProduct.id,
+            url,
+            displayOrder: index,
+            type: url.match(/\.(mp4|webm|ogg)$/i) ? "VIDEO" : "IMAGE",
+        }));
+        await db.insert(productMedia).values(mediaValues);
     }
-}
+
+    revalidatePath("/acessorios");
+    revalidatePath("/dashboard/produtos");
+    return { product: newProduct };
+}, { role: "ADMIN" });
 
 export async function getProducts(includeInactive = false) {
     try {
@@ -95,7 +92,6 @@ export async function getProducts(includeInactive = false) {
 
         const results = await query.orderBy(desc(products.createdAt));
 
-        // Buscar primeira imagem para cada produto
         const productsWithImage = await Promise.all(
             results.map(async (product) => {
                 const [firstMedia] = await db
@@ -180,9 +176,21 @@ export async function getProductById(id: number) {
     }
 }
 
-export async function updateProduct(id: number, data: z.infer<typeof productSchema>) {
+export async function updateProduct(id: number, data: any) {
+    const session = await getServerSession(authOptions);
+    if (!session || (session.user as any).role !== "ADMIN") {
+        return { error: "Não autorizado" };
+    }
+
+    const parsed = productSchema.safeParse(data);
+    if (!parsed.success) {
+        return { error: parsed.error.issues[0].message };
+    }
+
+    const validData = parsed.data;
+
     try {
-        const slug = data.name
+        const slug = validData.name
             .toLowerCase()
             .trim()
             .replace(/[^\w\s-]/g, "")
@@ -190,21 +198,20 @@ export async function updateProduct(id: number, data: z.infer<typeof productSche
             .replace(/^-+|-+$/g, "");
 
         await db.update(products).set({
-            name: data.name,
+            name: validData.name,
             slug,
-            description: data.description,
-            price: Math.round(data.price * 100),
-            promoPrice: data.promoPrice ? Math.round(data.promoPrice * 100) : null,
-            stockQuantity: data.stockQuantity,
-            category: data.category,
-            status: data.status,
+            description: validData.description,
+            price: Math.round(validData.price * 100),
+            promoPrice: validData.promoPrice ? Math.round(validData.promoPrice * 100) : null,
+            stockQuantity: validData.stockQuantity,
+            category: validData.category,
+            status: validData.status,
         }).where(eq(products.id, id));
 
-        // Update media: simple approach for MVP - delete and re-insert
-        if (data.images) {
+        if (validData.images) {
             await db.delete(productMedia).where(eq(productMedia.productId, id));
-            if (data.images.length > 0) {
-                const mediaValues = data.images.map((url, index) => ({
+            if (validData.images.length > 0) {
+                const mediaValues = validData.images.map((url, index) => ({
                     productId: id,
                     url,
                     displayOrder: index,
@@ -224,6 +231,11 @@ export async function updateProduct(id: number, data: z.infer<typeof productSche
 }
 
 export async function deleteProduct(id: number) {
+    const session = await getServerSession(authOptions);
+    if (!session || (session.user as any).role !== "ADMIN") {
+        return { error: "Não autorizado" };
+    }
+
     try {
         await db.delete(products).where(eq(products.id, id));
         revalidatePath("/acessorios");

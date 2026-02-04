@@ -4,52 +4,28 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
-import { z } from "zod";
+import { safeAction } from "@/lib/action-utils";
+import { registerSchema } from "@/lib/schemas";
 
-const registerSchema = z.object({
-    name: z.string().min(2, "O nome deve ter pelo menos 2 caracteres"),
-    email: z.string().email("E-mail inválido"),
-    password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
-    confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-    message: "As senhas não coincidem",
-    path: ["confirmPassword"],
+export const registerUser = safeAction(registerSchema, async (data) => {
+    const [existingUser] = await db
+        .select()
+        .from(users)
+        .where(eq(users.email, data.email))
+        .limit(1);
+
+    if (existingUser) {
+        throw new Error("E-mail já cadastrado"); // safeAction will catch this
+    }
+
+    const passwordHash = await bcrypt.hash(data.password, 10);
+
+    await db.insert(users).values({
+        name: data.name,
+        email: data.email,
+        passwordHash,
+        role: "USER", // Default role
+    });
+
+    return { success: true };
 });
-
-export async function registerUser(formData: FormData) {
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const confirmPassword = formData.get("confirmPassword") as string;
-
-    const result = registerSchema.safeParse({ name, email, password, confirmPassword });
-
-    if (!result.success) {
-        return { error: result.error.issues[0].message };
-    }
-
-    try {
-        const [existingUser] = await db
-            .select()
-            .from(users)
-            .where(eq(users.email, email))
-            .limit(1);
-
-        if (existingUser) {
-            return { error: "E-mail já cadastrado" };
-        }
-
-        const passwordHash = await bcrypt.hash(password, 10);
-
-        await db.insert(users).values({
-            name,
-            email,
-            passwordHash,
-            role: "USER", // Default role
-        });
-
-        return { success: true };
-    } catch (error) {
-        return { error: "Erro ao criar conta. Tente novamente." };
-    }
-}

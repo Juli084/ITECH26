@@ -2,46 +2,32 @@
 
 import { db } from "@/db";
 import { leads } from "@/db/schema";
-import { z } from "zod";
+import { safeAction } from "@/lib/action-utils";
+import { leadSchema } from "@/lib/schemas";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-const leadSchema = z.object({
-    name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
-    email: z.string().email("Email inválido"),
-    phone: z.string().optional(),
-    serviceInterest: z.string().min(1, "Selecione um serviço"),
-    message: z.string().min(10, "Mensagem deve ter pelo menos 10 caracteres"),
+export const createLead = safeAction(leadSchema, async (data) => {
+    await db.insert(leads).values({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        serviceInterest: data.serviceInterest,
+        message: data.message,
+        status: "NEW",
+    });
+
+    return { success: true };
+    // No role required (public)
 });
 
-export async function createLead(data: {
-    name: string;
-    email: string;
-    phone?: string;
-    serviceInterest: string;
-    message: string;
-}) {
-    const result = leadSchema.safeParse(data);
-
-    if (!result.success) {
-        return { error: result.error.issues[0].message };
-    }
-
-    try {
-        await db.insert(leads).values({
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            serviceInterest: data.serviceInterest,
-            message: data.message,
-            status: "NEW",
-        });
-
-        return { success: true };
-    } catch (error) {
-        return { error: "Erro ao enviar mensagem. Tente novamente." };
-    }
-}
-
 export async function getLeads() {
+    // RBAC: Only ADMIN can read leads
+    const session = await getServerSession(authOptions);
+    if (!session || (session.user as any).role !== "ADMIN") {
+        return [];
+    }
+
     try {
         const allLeads = await db.select().from(leads).orderBy(leads.createdAt);
         return allLeads;

@@ -6,6 +6,7 @@ import { CreditCard, ArrowLeft, ShieldCheck, Truck, MessageCircle } from "lucide
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { createOrder } from "@/app/actions/checkout";
 
 export default function CheckoutPage() {
     const { items, totalPrice, clearCart } = useCart();
@@ -21,14 +22,28 @@ export default function CheckoutPage() {
 
     if (items.length === 0 && !isProcessing) return null;
 
-    const handleFinish = () => {
+    const handleFinish = async () => {
         setIsProcessing(true);
-        // Aqui no futuro entrará a integração com Stripe/Mercado Pago
-        setTimeout(() => {
-            clearCart();
-            alert("Pedido simulado com sucesso! Em uma aplicação real, você seria redirecionado para o gateway de pagamento.");
-            router.push("/");
-        }, 2000);
+
+        // Prepare payload: only IDs and quantities
+        const payload = {
+            items: items.map(i => ({ id: i.id, quantity: i.quantity }))
+        };
+
+        const result = await createOrder(payload);
+
+        if (result.success && result.data) {
+            // In a real app, we would redirect to payment gateway with result.data.orderId
+            // For MVP, we simulate success
+            setTimeout(() => {
+                clearCart();
+                alert(`Pedido #${result.data?.orderId} criado com sucesso! Total validado: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format((result.data?.total || 0) / 100)}`);
+                router.push("/");
+            }, 1000);
+        } else {
+            alert(result.error || "Erro ao processar pedido");
+            setIsProcessing(false);
+        }
     };
 
     return (
@@ -103,7 +118,7 @@ export default function CheckoutPage() {
                                     <span className="text-green-600 font-bold uppercase text-[10px] tracking-widest bg-green-50 px-2 py-1 rounded-full">Grátis</span>
                                 </div>
                                 <div className="pt-3 border-t flex justify-between items-center text-slate-900">
-                                    <span className="font-bold">Total</span>
+                                    <span className="font-bold">Total (Estimado)</span>
                                     <span className="text-2xl font-black">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalPrice)}</span>
                                 </div>
                             </div>
@@ -117,7 +132,7 @@ export default function CheckoutPage() {
                             </Button>
 
                             <p className="text-[10px] text-center text-slate-400">
-                                Ao finalizar, você declara estar de acordo com os termos de compra da iTech Soluções Digitais.
+                                Ao finalizar, você concorda que o valor final será validado pelo servidor.
                             </p>
 
                             <div className="mt-8 pt-8 border-t flex flex-col items-center gap-4">

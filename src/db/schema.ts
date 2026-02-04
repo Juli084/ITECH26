@@ -53,6 +53,24 @@ export const productMedia = pgTable('product_media', {
   displayOrder: integer('display_order').notNull().default(0),
 });
 
+export const orders = pgTable('orders', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id), // Opcional (compra sem login por enquanto, ou futuro)
+  customerName: text('customer_name'),
+  customerEmail: text('customer_email'), // Para guest checkout
+  total: integer('total').notNull(), // Em centavos, calculado no server
+  status: text('status').notNull().default('PENDING'), // PENDING, PAID, CANCELED
+  createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const orderItems = pgTable('order_items', {
+  id: serial('id').primaryKey(),
+  orderId: integer('order_id').notNull().references(() => orders.id, { onDelete: 'cascade' }),
+  productId: integer('product_id').notNull().references(() => products.id),
+  quantity: integer('quantity').notNull(),
+  priceAtPurchase: integer('price_at_purchase').notNull(), // Preço congelado no momento da compra
+});
+
 
 export const siteSettings = pgTable('site_settings', {
   id: serial('id').primaryKey(),

@@ -6,6 +6,8 @@ import { eq, desc } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { safeAction } from "@/lib/action-utils";
+import { projectSchema } from "@/lib/schemas";
 
 export async function getProjects() {
     try {
@@ -16,33 +18,23 @@ export async function getProjects() {
     }
 }
 
-export async function createProject(data: {
-    title: string;
-    description: string;
-    imageUrl: string;
-    projectUrl: string;
-}) {
-    const session = await getServerSession(authOptions);
-    if (!session) return { success: false, error: "Unauthorized" };
-
-    try {
-        await db.insert(projects).values({
-            title: data.title,
-            description: data.description,
-            imageUrl: data.imageUrl,
-            projectUrl: data.projectUrl,
-        });
-        revalidatePath("/dashboard/projetos");
-        revalidatePath("/servicos/desenvolvimento-web");
-        return { success: true };
-    } catch (error) {
-        return { success: false, error: "Failed to create project" };
-    }
-}
+export const createProject = safeAction(projectSchema, async (data) => {
+    await db.insert(projects).values({
+        title: data.title,
+        description: data.description,
+        imageUrl: data.imageUrl,
+        projectUrl: data.projectUrl,
+    });
+    revalidatePath("/dashboard/projetos");
+    revalidatePath("/servicos/desenvolvimento-web");
+    return { success: true };
+}, { role: "ADMIN" });
 
 export async function deleteProject(id: number) {
     const session = await getServerSession(authOptions);
-    if (!session) return { success: false, error: "Unauthorized" };
+    if (!session || (session.user as any).role !== "ADMIN") {
+        return { success: false, error: "Unauthorized" };
+    }
 
     try {
         await db.delete(projects).where(eq(projects.id, id));
