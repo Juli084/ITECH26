@@ -9,17 +9,17 @@ import { SITE_CONFIG } from "@/lib/constants";
 
 export function ServiceHero() {
     return (
-        <section className="relative py-24 md:py-32 lg:py-40 overflow-hidden min-h-[80vh] flex flex-col justify-center">
+        <section className="relative py-24 md:py-32 lg:py-40 overflow-hidden min-h-[80vh] flex flex-col justify-center bg-slate-950">
             {/* Background Image */}
-            <div className="absolute inset-0 w-full h-full -z-10 bg-black">
+            <div className="absolute inset-0 w-full h-full -z-10">
                 <Image
                     src="/images/assistencia_hero_bg.png"
                     alt="iPhone Repair Service"
                     fill
-                    className="object-cover opacity-50"
+                    className="object-cover opacity-20 grayscale"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 to-slate-950" />
             </div>
 
             <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
@@ -28,7 +28,7 @@ export function ServiceHero() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-sm text-gray-300 mb-6 backdrop-blur-md bg-white/5"
+                        className="inline-flex items-center rounded-full border border-slate-800 px-3 py-1 text-sm text-slate-300 mb-6 backdrop-blur-md bg-slate-900/50"
                     >
                         <Smartphone className="h-4 w-4 mr-2 text-primary" />
                         <span className="font-medium">Especialistas em Apple</span>
@@ -48,7 +48,7 @@ export function ServiceHero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-lg"
+                        className="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed max-w-lg"
                     >
                         Assistência técnica especializada com peças de alta qualidade, garantia real e laboratório próprio.
                     </motion.p>
@@ -67,7 +67,7 @@ export function ServiceHero() {
                         <Button
                             size="lg"
                             variant="outline"
-                            className="h-14 px-8 text-lg rounded-full w-full sm:w-auto bg-white/5 border-white/10 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm"
+                            className="h-14 px-8 text-lg rounded-full w-full sm:w-auto bg-slate-900/50 border-slate-700 text-white hover:bg-slate-800 hover:text-white backdrop-blur-sm"
                             onClick={() => window.open(`${SITE_CONFIG.whatsappLink}?text=Olá, preciso de ajuda com meu iPhone.`, '_blank')}
                         >
                             WhatsApp

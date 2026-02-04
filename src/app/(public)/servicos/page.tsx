@@ -61,10 +61,12 @@ export default function ServicesPage() {
                     <img
                         src="/images/hero_bg_tech.png"
                         alt="Services Background"
-                        className="w-full h-full object-cover opacity-20"
+                        className="w-full h-full object-cover opacity-20 grayscale"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-white" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 to-slate-950" />
                 </div>
+
+                {/* Subtle Glows */}
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
@@ -72,11 +74,11 @@ export default function ServicesPage() {
                     <ScrollReveal delay={0.2} width="100%">
                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-8 tracking-tight leading-[1.1]">
                             Soluções Completas <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
                                 Para Sua Evolução Digital
                             </span>
                         </h1>
-                        <p className="text-lg md:text-xl text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-lg md:text-xl text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
                             Da manutenção do seu device Apple à estratégia de escala do seu negócio. Escolha o pilar que você precisa hoje.
                         </p>
                     </ScrollReveal>
