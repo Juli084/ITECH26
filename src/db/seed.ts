@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import { count, sql } from 'drizzle-orm';
+import bcrypt from 'bcryptjs';
 
 // 1. Load Environment Variables
 dotenv.config();
@@ -9,6 +10,14 @@ async function seed() {
 
     if (!process.env.DATABASE_URL) {
         console.error('❌ DATABASE_URL not found in environment.');
+        process.exit(1);
+    }
+
+    const adminName = process.env.ADMIN_NAME ?? 'Administrador';
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+    if (!adminEmail || !adminPassword || adminPassword.length < 12) {
+        console.error('❌ Defina ADMIN_EMAIL e ADMIN_PASSWORD (mínimo de 12 caracteres) no ambiente.');
         process.exit(1);
     }
 
@@ -23,23 +32,17 @@ async function seed() {
         console.log('✅ Connected successfully!');
 
         // --- USERS ---
-        console.log('👤 Seeding Admin Users...');
-        const adminHash = '$2b$10$YNGqKHnh3pVOj/slDq1Ewu3K6HXJvHeyss/uRTjVoJGWXhp.SgG02'; // 'admin123'
+        // O administrador vem do ambiente (ADMIN_EMAIL, ADMIN_PASSWORD, ADMIN_NAME).
+        // Não existe senha padrão no código.
+        console.log('👤 Seeding Admin User...');
+        const adminHash = await bcrypt.hash(adminPassword, 12);
 
-        await db.insert(users).values([
-            {
-                name: 'Julio Rodrigues',
-                email: 'juliorodrigues84@live.com',
-                passwordHash: adminHash,
-                role: 'ADMIN'
-            },
-            {
-                name: 'Admin iTech',
-                email: 'admin@itech.com',
-                passwordHash: adminHash,
-                role: 'ADMIN'
-            }
-        ]).onConflictDoNothing({ target: users.email });
+        await db.insert(users).values({
+            name: adminName,
+            email: adminEmail,
+            passwordHash: adminHash,
+            role: 'ADMIN'
+        }).onConflictDoNothing({ target: users.email });
 
         // --- SITE SETTINGS ---
         console.log('⚙️ Seeding Site Settings...');
